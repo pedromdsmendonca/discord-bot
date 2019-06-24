@@ -1,7 +1,6 @@
-const Discord = require('discord.js')
+const Discord = require('discord.js');
 const bot = new Discord.Client();
-
-const token = 'NTkyNzYzNzI5NDY5MjQzMzky.XREFtw.90f4HTpSWXCDHD7q-SpChJVmc1g'
+const config = require('./config.json')
 
 bot.on('ready', () => {
     console.log('bot is online');
@@ -9,7 +8,12 @@ bot.on('ready', () => {
 
 bot.on('message', msg => {
     if(msg.content === '!hello')
-        msg.reply('hello friend');
+        msg.author.send('hello friend');
 });
 
-bot.login(token);
+bot.login(config.token);
+
+function countdown(message){
+    var voiceChannel = message.author.voiceChannel;
+    if(!voiceChannel) return message.channel.send()
+}
