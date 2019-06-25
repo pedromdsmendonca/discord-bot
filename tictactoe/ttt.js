@@ -56,6 +56,7 @@ class GamesManager{
 
     leaveGame(user){
         let game = this.userGames[user];
+        delete this.gameCodes[game.code];
         delete this.userGames[game.player1];
         delete this.userGames[game.player2];
     }
