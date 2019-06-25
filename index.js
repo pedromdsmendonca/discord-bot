@@ -28,18 +28,41 @@ bot.on('message', msg => {
 
     //ttt related commands
     if(args[0] === '!ttt'){
-        if(args[1] !== 'create' && !gm.userInGame(msg.author.id)){
-            return msg.reply('You\'re not currently in any game! Create a game first with the command: !ttt create');
-        }
+        //create a new game
         if(args[1] === 'create'){
             if(gm.userInGame(msg.author.id)){
-                return msg.reply('You can\'t create a new Game while you are still playing! If you want to delete your current game type the command: !ttt delete');
+                return msg.reply('You can\'t create a new Game while you are still playing! If you want to leave your current game type the command: !ttt leave');
+            }    
+            let code = gm.generateGame(msg.author.id);
+            return msg.reply(`Created game with code \'${code}\'. To join this game type the command: !ttt join ${code}`);
+        }
+        //join an existing game
+        if(args[1] === 'join'){
+            if(gm.userInGame(msg.author.id)){
+                return msg.reply('You can\'t join a new Game while you are still playing! If you want to leave your current game type the command: !ttt leave');
+            }
+            if(gm.joinGame(msg.author.id, args[2])){
+                return msg.reply('Joined the game!');
             }
             else{
-                let code = gm.generateGame(msg.author.id);
-                return msg.reply(`Created game with code \'${code}\'. To join this game type the command: !ttt join ${code}`);
+                return msg.reply('Failed to join game D:');
             }
         }
+        //leave current game
+        if(args[1] === 'leave'){
+            if(!gm.userInGame(msg.author.id)){
+                return msg.reply('You can\'t leave a Game if you\'re not playing in one!');
+            }
+            gm.leaveGame(msg.author.id);
+            return msg.reply('You left the game');
+        }
+        //for any other command we can first check if the user is in a game
+        if(!gm.userInGame(msg.author.id)){
+            return msg.reply('You\'re not currently in any game! Create a game first with the command: !ttt create');
+        }
+
+        //remaining commands
+        //...
     }
 });
 
