@@ -3,6 +3,10 @@ const bot = new Discord.Client();
 const config = require('./config.json')
 const https = require('https')
 
+const {TicTacToe, GamesManager} = require('./tictactoe/ttt.js');
+
+const gm = new GamesManager();
+
 bot.on('ready', () => {
     console.log('bot is online');
     bot.user.setActivity('Porn Hub', {type: 'WATCHING'}).catch(console.error);
@@ -21,12 +25,22 @@ bot.on('message', msg => {
     if(msg.content === '!dad'){
         return dadJoke(msg);
     }
-    if(msg.content === '!porn'){
-        return msg.channel.send('https://pt.pornhub.com/random')
+
+    //ttt related commands
+    if(args[0] === '!ttt'){
+        if(args[1] !== 'create' && !gm.userInGame(msg.author.id)){
+            return msg.reply('You\'re not currently in any game! Create a game first with the command: !ttt create');
+        }
+        if(args[1] === 'create'){
+            if(gm.userInGame(msg.author.id)){
+                return msg.reply('You can\'t create a new Game while you are still playing! If you want to delete your current game type the command: !ttt delete');
+            }
+            else{
+                let code = gm.generateGame(msg.author.id);
+                return msg.reply(`Created game with code \'${code}\'. To join this game type the command: !ttt join ${code}`);
+            }
+        }
     }
-    // if(args[0] === '-play' || args[0] === '.music'){
-    //     return msg.member.send('NAO PARES DE POR MUSICA SEU MALANDRO!')
-    // }
 });
 
 bot.login(config.token);
