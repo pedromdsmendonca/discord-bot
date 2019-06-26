@@ -4,8 +4,10 @@ const config = require('./config.json')
 const https = require('https')
 
 const {TicTacToe, GamesManager} = require('./tictactoe/ttt.js');
+const RoguePG = require('./roguepg/roguepg.js');
 
 const gm = new GamesManager();
+const rpg = new RoguePG();
 
 bot.on('ready', () => {
     console.log('bot is online');
