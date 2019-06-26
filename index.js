@@ -66,6 +66,24 @@ bot.on('message', msg => {
         //remaining commands
         //...
     }
+
+    // roguepg
+    if(args[0] === '!rpg'){
+        if(args[1] === 'create'){
+            if(args[2]){
+                return rpg.register(msg, args[2]);
+            }
+            return msg.reply('You need to suply a character name! (!rpg create <name>)');
+        }
+
+        if(args[1] === 'status'){
+            return rpg.getCharacter(msg);
+        }
+
+        if(args[1] === 'action'){
+            return rpg.performAction(msg);
+        }
+    }
 });
 
 bot.login(config.token);

@@ -15,6 +15,14 @@ class UserRepository {
             },
         ];
     }
+
+    addUser(user, character){
+        this.users.push({
+            name: user.name,
+            discordId: user.discordId,
+            character: character
+        });
+    }
 }
 
 module.exports = UserRepository;
