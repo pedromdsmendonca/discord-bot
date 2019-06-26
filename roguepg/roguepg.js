@@ -22,9 +22,12 @@ class RoguePG{
             level: 1,
             hp: 10,
             att: 5,
-            matt: 5,
             def: 5,
-            exp: 0
+            gold: 0,
+            eva: 5,
+            exp: 0,
+            inventory: [],
+            equips: []
         }
     }
 
