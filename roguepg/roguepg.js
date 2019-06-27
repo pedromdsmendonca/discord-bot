@@ -1,9 +1,11 @@
 const UserRepository = require('./repos/UserRepository');
+const DungeonRepository = require('./repos/DungeonRepository');
 const Discord = require('discord.js');
 
 class RoguePG{
     constructor(){
         this.userRepository = new UserRepository();
+        this.dungeonRepository = new DungeonRepository();
         this.cooldowns = {}
     }
 
@@ -47,6 +49,19 @@ class RoguePG{
             .addField('Magic', user.character.matt, true)
         
         return msg.reply(embed);
+    }
+
+    getDungeonList(msg){
+
+        let dungs = this.dungeonRepository.dungeons;
+
+        var response = '';
+
+        dungs.forEach(d => {
+            response += d.name + '\n';
+        });
+              
+        return msg.reply(response);
     }
 
     performAction(msg){

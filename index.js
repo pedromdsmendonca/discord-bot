@@ -83,6 +83,12 @@ bot.on('message', msg => {
         if(args[1] === 'action'){
             return rpg.performAction(msg);
         }
+
+        if(args[1] === 'dungeon'){
+            if(!args[2]){
+                return rpg.getDungeonList(msg);
+            }
+        }
     }
 });
 
