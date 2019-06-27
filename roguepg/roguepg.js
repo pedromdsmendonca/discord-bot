@@ -64,6 +64,22 @@ class RoguePG{
         return msg.reply(response);
     }
 
+    attemptDungeon(msg, tag){
+        let dung = this.dungeonRepository.dungeons.find(d => d.tag == tag);
+
+        if(!dung) return msg.reply('Invalid tag! Check which tags exist with !rpg dungeon');
+
+        let user = this.userRepository.users.find(u => u.discordId == msg.author.id);
+
+        if(user.character.level < dung.level) return msg.reply('Dungeon level is too high for you! Try a weaker dungeon!');
+
+        msg.reply('You just started attempting the dungeon! The time for completion is ' + dung.cooldown + ' seconds.');
+
+        setTimeout(() => {
+            msg.reply('Finished dungeon!');
+        }, dung.cooldown * 1000)
+    }
+
     performAction(msg){
         let cd = this.cooldowns[msg.author.id];
         let currentTime = new Date();

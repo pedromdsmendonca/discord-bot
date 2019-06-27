@@ -88,6 +88,8 @@ bot.on('message', msg => {
             if(!args[2]){
                 return rpg.getDungeonList(msg);
             }
+
+            return rpg.attemptDungeon(msg, args[2]);
         }
     }
 });
