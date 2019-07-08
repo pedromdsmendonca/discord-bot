@@ -18,15 +18,17 @@ bot.on('message', msg => {
         return msg.author.send('hello friend');
     if(args[0] === '!miguel')
         return countdown(msg, args[1]);
+    if(args[0] === '!bernardo')
+        return countdown(msg, args[1]);
     if(msg.content === '!dad'){
         return dadJoke(msg);
     }
     if(msg.content === '!porn'){
         return msg.channel.send('https://pt.pornhub.com/random')
     }
-    // if(args[0] === '-play' || args[0] === '.music'){
-    //     return msg.member.send('NAO PARES DE POR MUSICA SEU MALANDRO!')
-    // }
+    if(args[0] === '-play' || args[0] === '.music'){
+        return msg.member.send('NAO PARES DE POR MUSICA SEU MALANDRO!')
+    }
 });
 
 bot.login(config.token);
@@ -43,6 +45,10 @@ function countdown(message, arg){
         console.log("Successfully connected.");
         var file = 'miguel_docinho';
         switch(arg){
+            case 'bernardo':
+            case 'cd':
+                file = 'bernardo';
+                break;
             case 'espetaculo':
                 file = 'miguel_espetaculo';
                 break;
